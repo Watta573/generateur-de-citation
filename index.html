@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Citations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Mon modele pour ajouter citation -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter Citation</h3>
+                <button class="btn btn-sec btn-close" onclick="closeModal()">&times;</button>
+            </div>
+            <form onsubmit="addCustom(event)">
+                <div class="form-group">
+                    <label class="form-label" for="cText">Citation</label>
+                    <textarea class="form-textarea" id="cText" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cAuthor">Auteur</label>
+                    <input class="form-input" id="cAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cSource">Source</label>
+                    <input class="form-input" id="cSource" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cYear">Année</label>
+                    <input type="number" class="form-input" id="cYear" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cCat">Catégorie</label>
+                    <select class="form-select" id="cCat" required>
+                        <option value="motivation">Motivation</option>
+                        <option value="success">Succès</option>
+                        <option value="leadership">Leadership</option>
+                        <option value="life">Vie</option>
+                        <option value="custom">Perso</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-full">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Container principale -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="dot"></div>
+                Générateur de citations
+            </div>
+            <button class="btn" onclick="toggleTheme()" id="theme">Mode Sombre</button>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(0)">Générateur</button>
+            <button class="tab" onclick="switchTab(1)">Favoris</button>
+            <button class="tab" onclick="switchTab(2)">Historique</button>
+            <button class="tab" onclick="switchTab(3)">Recherche</button>
+        </div>
+
+        <!-- Tab 1: Générateur -->
+        <div class="tab-content active">
+            <!-- Filtres de catégories -->
+            <div class="filters" id="filters"></div>
+
+            <!-- Carte de citation -->
+            <div class="quote-box">
+                <div class="mark">"</div>
+                <div class="quote-text" id="qText">Cliquez sur "Générer" pour découvrir une citation inspirante...</div>
+                <div class="author" id="qAuthor"></div>
+                <div class="meta" id="qMeta"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+                <button class="btn" onclick="generate()">Générer</button>
+                <button class="btn btn-sec" onclick="addFav()">Favoris ★</button>
+                <button class="btn btn-sec" onclick="copy()">Copier</button>
+                <button class="btn btn-sec" onclick="share()">Partager</button>
+                <button class="btn btn-sec" onclick="openModal()">Ajouter +</button>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-num" id="sViews">0</div>
+                    <div class="stat-label">Vues</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="sFavs">0</div>
+                    <div class="stat-label">Favoris</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="sShares">0</div>
+                    <div class="stat-label">Partages</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="sTotal">20</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Favoris -->
+        <div class="tab-content">
+            <div class="title">Mes Favoris</div>
+            <div class="export-buttons">
+                <button class="btn btn-sec" onclick="exportData('json')">Exporter JSON</button>
+                <button class="btn btn-sec" onclick="exportData('txt')">Exporter TXT</button>
+                <button class="btn btn-sec" onclick="exportData('csv')">Exporter CSV</button>
+            </div>
+            <div id="favsList"></div>
+        </div>
+
+        <!-- Tab 3: Historique -->
+        <div class="tab-content">
+            <div class="title">Historique</div>
+            <button class="btn btn-sec btn-margin-bottom" onclick="clearHist()">Effacer Historique</button>
+            <div id="histList"></div>
+        </div>
+
+        <!-- Tab 4: Recherche -->
+        <div class="tab-content">
+            <div class="title">Recherche</div>
+            <div class="search-box">
+                <input class="search-input" id="searchIn" placeholder="Rechercher par auteur, mot-clé ou catégorie...">
+                <button class="btn" onclick="search()">Rechercher</button>
+            </div>
+            <div id="searchRes"></div>
+        </div>
+    </div>
+    </div>
+    <footer>
+        <p> Réalisé Par COULIBALY W.ELFI ESTEBAN & TRAORE SARIFATOU</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
